@@ -1,0 +1,85 @@
+.grid{
+    display: grid; /* inline-grid */
+    grid-template-columns:2fr 60% minmax(100px, 1fr); /*колонки -размер-px,%,фракции;можно комбинировать px и %*/
+    grid-template-rows:minmax(200px, 1fr) 100px 1fr; /*строки -%-не указывать высоту;*/
+    /*minmax(100px,1fr) 
+      repeat(4,200px)*/
+    grid-template-columns:repeat(4,200px);/*будет повторять можно указывать repeat(4,100px)repeat(4,200px)-*/
+    grid-auto-rows:minmax(200px auto); /*высота колонок -minmax(200px auto)*/
+    grid-column-gap: 20px;/*отступ между колонками*/
+    grid-row-gap: 20px;/*отступ между строками*/
+    grid-gap: 50px;/*колонки+строки*/
+    justify-items: center;/* по горизонтали (по умолчанию stretch-мах высота и ширина,start,end,center)*/
+    align-items: center;/*по вертикали*/
+
+
+    .grid-item{
+        padding:20px;
+        background: brown;
+    
+        &:first-child{ /*&-прибавление*/
+        grid-column-start:1;/*с какой колонки будет начинатся */
+        grid-column-end:-1;/*на какой колонки закончится,можно передавать отрицательное значение(все начинается с правой стороны)*/
+        grid-column:1/-1;/*краткая запись колонки+строки*/
+
+        align-self:start;/*переназначение параметров*/
+        justify-self: start;
+
+        }
+    }
+
+
+}
+
+.wrapper{
+    display:grid;
+    max-width: 1024px;
+    margin:0 auto;
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas: 
+    /*структура страницы- "heading heading"
+    "sidebar content"
+    "foot foot";*/
+    "heading heading"/*можно указать высоту в px*/
+    "sidebar content"
+    "sidebar foot";
+
+    grid-template: 
+    "heading heading"200px
+    "sidebar content"minmax(600px, auto)
+    "foot foot"200px
+     /1fr 3fr;
+
+}
+header,aside,main,footer{
+    background:#fef8ec;
+    border:1px solid #f0b87d;
+    padding:10px;
+}
+header{
+    grid-area: heading;/*Имя*/
+
+}
+aside{
+    grid-area: sidebar;
+}
+main{
+    grid-area: content;
+}
+footer{
+    grid-area: foot;
+}
+
+
+
+
+@media(max-width:640px){
+    .wrapper{
+        grid-template-columns:1fr;
+        grid-template-areas: 
+        "heading"
+        "sidebar"
+        "content"
+        "foot";  
+    }
+}
